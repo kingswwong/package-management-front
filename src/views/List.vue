@@ -66,9 +66,20 @@
         })
       },
       comfirmRecipient(item){
-        item.status = 2
-        updateItemStatus(item).then(() => {
-          this.getAll()
+        this.$confirm('您确定该物品已收货吗', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center: true
+        }).then(() => {
+          item.status = 2
+          updateItemStatus(item).then(() => {
+            this.$message({
+              message: '确认收货',
+              type: 'success'
+            });
+            this.getAll()
+          })
         })
       },
       formatStatus(row, column, cellValue){
